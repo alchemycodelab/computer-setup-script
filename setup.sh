@@ -14,7 +14,7 @@ function error {
   echo -e "\e[31m${1}\e[0m" 1>&2
   exit 1
 }
- 
+
 OS=$(uname -s)
 if [[ $OS != Linux && $OS != Darwin ]]; then
   error "Unsupported Operating System: ${OS}"
@@ -38,7 +38,7 @@ function installHomebrew {
   if [[ $OS != Darwin ]]; then
     return
   fi
-  
+
   clear
 
   if [[ -n $(command -v brew) ]]; then
@@ -56,7 +56,7 @@ function installNVM {
   if [[ -f "$HOME/.nvm/nvm.sh" ]]; then
     source $HOME/.nvm/nvm.sh
   fi
-  
+
   if [[ -n $(command -v nvm) ]]; then
     warn "NVM already installed"
     return
@@ -96,7 +96,7 @@ function installGit {
 
 function installHeroku {
   if [[ -n $(command -v heroku) ]]; then
-    warn "Heroku already installed"
+    warn "Heroku already installed."
     return
   fi
 
@@ -120,14 +120,14 @@ function installPostgres {
     wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
     sudo apt update
     sudo apt install -y postgresql
-    
+
     if [[ -n $(command -v systemctl) ]]; then
       sudo systemctl enable postgresql
       sudo systemctl start postgresql
     else
       sudo service postrgesql start
     fi
-    
+
   else
     brew install postgres
     brew services start postgresql
